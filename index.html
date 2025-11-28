@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sierra Leone Football Agency - Connecting Local Talents</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .header-button {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .header-button:hover {
+            background: #2d3748;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 80px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            margin-bottom: 24px;
+            color: #1a202c;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #2d3748;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #333;
+            border: 2px solid #4a5568;
+            padding: 12px 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: #f7fafc;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* What We Offer Section */
+        .offer-section {
+            background: #f7fafc;
+            padding: 80px 50px;
+        }
+
+        .offer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .offer-section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 60px;
+            color: #1a202c;
+        }
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .offer-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .offer-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .offer-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #1a202c;
+        }
+
+        .offer-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Full Width Image Section */
+        .full-image {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px 80px 50px;
+        }
+
+        .full-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            color: #1a202c;
+            margin-bottom: 24px;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #f7fafc;
+            padding: 80px 50px;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 36px;
+            color: #1a202c;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .contact-card h3 {
+            font-size: 18px;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+
+        .contact-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .contact-card a {
+            color: #4a5568;
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: #f7fafc;
+            border-top: 1px solid #e0e0e0;
+            padding: 60px 50px 40px 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #333;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #4a5568;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #1a202c;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #333;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .footer-bottom a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-bottom a:hover {
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+            }
+
+            .offer-section {
+                padding: 40px 20px;
+            }
+
+            .full-image {
+                padding: 0 20px 40px 20px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section {
+                padding: 40px 20px;
+            }
+
+            .contact-section {
+                padding: 40px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px;
+            }
+
+            footer {
+                padding: 40px 20px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-circle"></div>
+            <span class="logo-text">Logo</span>
+        </div>
+        <nav>
+            <a href="index.html" class="active">HOME</a>
+            <a href="players.html">PLAYERS</a> 
+            <a href="matches.html">MATCHES</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+            <a href="players.html" class="header-button">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Empowering Sierra Leone's Football Talent</h1>
+            <p>We are dedicated to discovering, training, and connecting talented young footballers from Sierra Leone with professional opportunities worldwide. Our comprehensive program provides world-class coaching, mentorship, and pathways to success in professional football.</p>
+            <div class="hero-buttons">
+                <a href="players.html" class="btn-primary">Join Our Program</a>
+                <a href="#about" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=600&fit=crop" alt="Football training in Sierra Leone" class="hero-image">
+    </section>
+
+    <!-- What We Offer Section -->
+    <section class="offer-section">
+        <div class="offer-container">
+            <h2>WHAT WE OFFER</h2>
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=200&h=200&fit=crop" alt="Professional Training" class="offer-icon">
+                    <h3>Professional Training</h3>
+                    <p>Our certified coaches provide world-class training programs designed to develop technical skills, tactical awareness, and physical conditioning for aspiring footballers.</p>
+                </div>
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1521731978332-9e9e714bdd20?w=200&h=200&fit=crop" alt="International Connections" class="offer-icon">
+                    <h3>International Connections</h3>
+                    <p>We connect talented players with professional clubs, scouts, and agencies across Africa, Europe, and beyond, opening doors to international football careers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Width Image -->
+    <section class="full-image">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&h=400&fit=crop" alt="Young football players training together">
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Us</h2>
+                <p>Sierra Leone Football Agency was founded with a mission to nurture and showcase the incredible football talent that exists within Sierra Leone. We believe that every talented young player deserves the opportunity to reach their full potential.</p>
+                <p>Our experienced team of coaches, scouts, and mentors work tirelessly to provide comprehensive support to our players, from technical training to career guidance and international connections.</p>
+                <p>With partnerships across Africa, Europe, and beyond, we've successfully helped numerous players transition to professional careers, representing both their country and clubs at the highest levels.</p>
+                <a href="about.html" class="btn-primary" style="margin-top: 20px;">Read Full Story</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600&h=400&fit=crop" alt="Team meeting" class="about-image">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2>Get In Touch</h2>
+            <p>Interested in joining our program, partnering with us, or learning more about our players? We'd love to hear from you. Reach out to our team today.</p>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>📧 Email Us</h3>
+                    <p><a href="mailto:info@slfootball.com">info@slfootball.com</a></p>
+                </div>
+                <div class="contact-card">
+                    <h3>📞 Call Us</h3>
+                    <p><a href="tel:+23276123456">+232 76 123 456</a></p>
+                </div>
+                <div class="contact-card">
+                    <h3>📍 Visit Us</h3>
+                    <p>Freetown, Sierra Leone</p>
+                </div>
+            </div>
+
+            <a href="contact.html" class="btn-primary" style="margin-top: 40px; display: inline-block;">Send us a Message</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-container">
+                    <div class="footer-logo-circle"></div>
+                    <span class="logo-text">Logo</span>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Facebook">👍</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">▶️</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="players.html">Our Players</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:info@slfootball.com">info@slfootball.com</a></li>
+                    <li><a href="tel:+23276123456">+232 76 123 456</a></li>
+                    <li><a href="contact.html">Freetown, Sierra Leone</a></li>
+                    <li><a href="contact.html">Get In Touch</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Sierra Leone Football Agency. All rights reserved.
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+</body>
+</html>

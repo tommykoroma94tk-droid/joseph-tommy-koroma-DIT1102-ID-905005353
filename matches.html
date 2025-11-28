@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matches - Sierra Leone Football Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7fafc;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .header-button {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .header-button:hover {
+            background: #2d3748;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            padding: 60px 50px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 0 50px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 12px 32px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            border-color: #4a5568;
+            color: #4a5568;
+        }
+
+        .tab-button.active {
+            background: #4a5568;
+            color: white;
+            border-color: #4a5568;
+        }
+
+        /* Matches Container */
+        .matches-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 50px 80px;
+        }
+
+        .matches-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1a202c;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4a5568;
+        }
+
+        /* Match Card */
+        .match-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .match-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .match-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background: #e6f7ff;
+            color: #0066cc;
+        }
+
+        .status-live {
+            background: #ffe6e6;
+            color: #cc0000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .status-finished {
+            background: #e6f7e6;
+            color: #00aa00;
+        }
+
+        .match-content {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .team-home {
+            align-items: flex-end;
+        }
+
+        .team-away {
+            align-items: flex-start;
+        }
+
+        .team-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            border: 3px solid #e0e0e0;
+            transition: transform 0.3s;
+        }
+
+        .match-card:hover .team-icon {
+            transform: scale(1.05);
+        }
+
+        .team-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a202c;
+            text-align: center;
+        }
+
+        .match-center {
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .match-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a202c;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .match-time {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .match-vs {
+            font-size: 24px;
+            color: #999;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .match-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .match-competition {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .match-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .view-details {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .view-details:hover {
+            background: #2d3748;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state p {
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 60px 50px 40px 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #333;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #4a5568;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #1a202c;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #333;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .footer-bottom a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-bottom a:hover {
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-hero {
+                padding: 40px 20px;
+            }
+
+            .page-hero h1 {
+                font-size: 32px;
+            }
+
+            .filter-tabs {
+                padding: 0 20px;
+                flex-wrap: wrap;
+            }
+
+            .matches-container {
+                padding: 0 20px 40px;
+            }
+
+            .match-card {
+                padding: 20px;
+            }
+
+            .match-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .team-home,
+            .team-away {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .team-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+
+            .match-score {
+                font-size: 36px;
+            }
+
+            .match-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px;
+            }
+
+            footer {
+                padding: 40px 20px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-circle"></div>
+            <span class="logo-text">Logo</span>
+        </div>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="players.html">PLAYERS</a>
+            <a href="matches.html" class="active">MATCHES</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+            <a href="players.html" class="header-button">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1>Matches & Fixtures</h1>
+        <p>Follow our players' matches and see them in action across tournaments and leagues</p>
+    </section>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="tab-button active" onclick="showAll()">All Matches</button>
+        <button class="tab-button" onclick="showUpcoming()">Upcoming</button>
+        <button class="tab-button" onclick="showPast()">Past Results</button>
+    </div>
+
+    <!-- Matches Container -->
+    <div class="matches-container">
+        <!-- Upcoming Matches Section -->
+        <div class="matches-section" id="upcoming-section">
+            <h2 class="section-title">Upcoming Matches</h2>
+            
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Saturday, November 30, 2025 • 3:00 PM
+                    </div>
+                    <div class="match-status status-upcoming">UPCOMING</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                   <img src="images/team3.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                    </div>
+                        <div class="team-name">Sierra Leone U-20</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-vs">VS</div>
+                        <div class="match-time">Kickoff in 9 days</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">
+                        <img src="images/team1.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="team-name">Guinea U-20</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 West African Youth Championship</div>
+                    <div class="match-location">📍 National Stadium, Freetown</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Wednesday, December 4, 2025 • 6:00 PM
+                    </div>
+                    <div class="match-status status-upcoming">UPCOMING</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                      <img src="images/team1.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                      </div>
+                        <div class="team-name">East End Lions</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-vs">VS</div>
+                        <div class="match-time">Kickoff in 13 days</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">
+                     <img src="images/team3.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                    </div>
+                        <div class="team-name">Mighty Blackpool</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 Sierra Leone Premier League</div>
+                    <div class="match-location">📍 Freetown Stadium</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Sunday, December 8, 2025 • 4:30 PM
+                    </div>
+                    <div class="match-status status-upcoming">UPCOMING</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                      <img src="images/team2.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                      </div>
+                        <div class="team-name">FC Kallon</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-vs">VS</div>
+                        <div class="match-time">Kickoff in 17 days</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">
+                         <img src="images/team1.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                          </div>
+                        <div class="team-name">Bo Rangers</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 Sierra Leone Premier League</div>
+                    <div class="match-location">📍 Bo Stadium</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Matches Section -->
+        <div class="matches-section" id="past-section">
+            <h2 class="section-title">Recent Results</h2>
+            
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Saturday, November 16, 2025 • 3:00 PM
+                    </div>
+                    <div class="match-status status-finished">FINISHED</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                        <img src="images/team3.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="team-name">Sierra Leone U-20</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">2 - 1</div>
+                        <div class="match-time">Full Time</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">
+                       <img src="images/team2.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                       </div>
+                        <div class="team-name">Liberia U-20</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 West African Youth Championship</div>
+                    <div class="match-location">📍 National Stadium, Freetown</div>
+                    <a href="#" class="view-details">Match Report</a>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Wednesday, November 13, 2025 • 5:30 PM
+                    </div>
+                    <div class="match-status status-finished">FINISHED</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                       <img src="images/team1.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                       </div>
+                        <div class="team-name">East End Lions</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">3 - 2</div>
+                        <div class="match-time">Full Time</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">
+                       <img src="images/team2.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="team-name">FC Kallon</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 Sierra Leone Premier League</div>
+                    <div class="match-location">📍 Freetown Stadium</div>
+                    <a href="#" class="view-details">Match Report</a>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Sunday, November 10, 2025 • 4:00 PM
+                    </div>
+                    <div class="match-status status-finished">FINISHED</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                        <img src="images/team3.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="team-name">Bo Rangers</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">1 - 1</div>
+                        <div class="match-time">Full Time</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">🦅</div>
+                        <div class="team-name">Mighty Blackpool</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 Sierra Leone Premier League</div>
+                    <div class="match-location">📍 Bo Stadium</div>
+                    <a href="#" class="view-details">Match Report</a>
+                </div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="match-date">
+                        📅 Saturday, November 2, 2025 • 3:30 PM
+                    </div>
+                    <div class="match-status status-finished">FINISHED</div>
+                </div>
+                <div class="match-content">
+                    <div class="team team-home">
+                        <div class="team-icon">
+                         <img src="images/team1.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                          </div>
+                        <div class="team-name">Ports Authority</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">0 - 2</div>
+                        <div class="match-time">Full Time</div>
+                    </div>
+                    <div class="team team-away">
+                        <div class="team-icon">
+                        <img src="images/team3.jpeg" alt="Team Name" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                         </div>
+                        <div class="team-name">East End Lions</div>
+                    </div>
+                </div>
+                <div class="match-footer">
+                    <div class="match-competition">🏆 Sierra Leone Premier League</div>
+                    <div class="match-location">📍 Freetown Stadium</div>
+                    <a href="#" class="view-details">Match Report</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-container">
+                    <div class="footer-logo-circle"></div>
+                    <span class="logo-text">Logo</span>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Facebook">👍</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">▶️</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="players.html">Our Players</a></li>
+                    <li><a href="matches.html">Matches</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:info@slfootball.com">info@slfootball.com</a></li>
+                    <li><a href="tel:+23276123456">+232 76 123 456</a></li>
+                    <li><a href="contact.html">Freetown, Sierra Leone</a></li>
+                    <li><a href="contact.html">Get In Touch</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Sierra Leone Football Agency. All rights reserved.
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        function showAll() {
+            document.getElementById('upcoming-section').style.display = 'block';
+            document.getElementById('past-section').style.display = 'block';
+            updateActiveTab(0);
+        }
+
+        function showUpcoming() {
+            document.getElementById('upcoming-section').style.display = 'block';
+            document.getElementById('past-section').style.display = 'none';
+            updateActiveTab(1);
+        }
+
+        function showPast() {
+            document.getElementById('upcoming-section').style.display = 'none';
+            document.getElementById('past-section').style.display = 'block';
+            updateActiveTab(2);
+        }
+
+        function updateActiveTab(index) {
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
